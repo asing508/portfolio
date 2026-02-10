@@ -203,7 +203,7 @@ export default function CursorFollower() {
                     width: 400,
                     height: 400,
                     opacity: 0,
-                    transition: "opacity 0.4s ease",
+                    transition: "opacity 0.7s ease",
                     borderRadius: "50%",
                 }}
             />

@@ -151,21 +151,25 @@ export default function CursorFollower() {
                 className="absolute top-0 left-0 will-change-transform"
                 style={{ opacity: 0, transition: "opacity 0.3s ease" }}
             >
+                {/* Top */}
                 <div ref={setCrosshairRef(0)} style={{
-                    position: "absolute", left: -0.5, top: -6,
-                    width: 1, height: 3.5, borderRadius: 0.5,
+                    position: "absolute", left: -1, top: -7,
+                    width: 2, height: 4, borderRadius: 1,
                 }} />
+                {/* Bottom */}
                 <div ref={setCrosshairRef(1)} style={{
-                    position: "absolute", left: -0.5, top: 2.5,
-                    width: 1, height: 3.5, borderRadius: 0.5,
+                    position: "absolute", left: -1, top: 3,
+                    width: 2, height: 4, borderRadius: 1,
                 }} />
+                {/* Left */}
                 <div ref={setCrosshairRef(2)} style={{
-                    position: "absolute", left: -6, top: -0.5,
-                    width: 3.5, height: 1, borderRadius: 0.5,
+                    position: "absolute", left: -7, top: -1,
+                    width: 4, height: 2, borderRadius: 1,
                 }} />
+                {/* Right */}
                 <div ref={setCrosshairRef(3)} style={{
-                    position: "absolute", left: 2.5, top: -0.5,
-                    width: 3.5, height: 1, borderRadius: 0.5,
+                    position: "absolute", left: 3, top: -1,
+                    width: 4, height: 2, borderRadius: 1,
                 }} />
             </div>
 

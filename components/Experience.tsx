@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import {
-  Briefcase,
   Calendar,
   MapPin,
   ChevronRight,
@@ -15,12 +14,16 @@ const experiences = [
   {
     id: 1,
     company: "Qualaces",
+    logo: "Q",
     role: "Software Engineering Intern",
     team: "Core AI Team",
     location: "Tempe, AZ",
     period: "August 2025 – December 2025",
     type: "Full-time",
     color: "from-cyan-500 to-blue-500",
+    bgColor: "bg-cyan-500/10",
+    borderColor: "border-cyan-500/30",
+    textColor: "text-cyan-400",
     highlights: [
       "Built a HIPAA-compliant SaaS platform using React, TypeScript, and Node.js, streamlining home-health documentation and reducing manual entry time",
       "Engineered data ingestion pipelines using OCR (Tesseract.js) to extract unstructured medication data, transforming it into structured SQL formats",
@@ -40,12 +43,16 @@ const experiences = [
   {
     id: 2,
     company: "Attackfence Techlabs",
+    logo: "AF",
     role: "Software Engineering Intern",
     team: "",
     location: "Remote",
     period: "June 2025 – August 2025",
     type: "Full-time",
     color: "from-purple-500 to-pink-500",
+    bgColor: "bg-purple-500/10",
+    borderColor: "border-purple-500/30",
+    textColor: "text-purple-400",
     highlights: [
       "Designed and maintained a relational database schema (MySQL) to support a performance evaluation CRM portal, handling records for 100+ employees",
       "Developed 4 distinct role-based dashboards (Employee, Manager, HR, Admin) to improve workflow efficiency and visualize performance metrics",
@@ -64,12 +71,16 @@ const experiences = [
   {
     id: 3,
     company: "Aubot",
+    logo: "Au",
     role: "Software Engineering Intern",
     team: "",
     location: "Remote",
     period: "March 2025 – May 2025",
     type: "Part-time",
     color: "from-orange-500 to-amber-500",
+    bgColor: "bg-orange-500/10",
+    borderColor: "border-orange-500/30",
+    textColor: "text-orange-400",
     highlights: [
       "Refined Java and Python data structures curriculum, creating automated test cases for student code submissions",
       "Analyzed student performance data to identify curriculum bottlenecks, improving material clarity by 15%",
@@ -156,10 +167,13 @@ export default function Experience() {
                   className={`flex flex-wrap items-start gap-4 mb-4 ${index % 2 === 0 ? "md:flex-row-reverse" : ""
                     }`}
                 >
+                  {/* Company Logo */}
                   <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${exp.color} flex items-center justify-center shadow-lg`}
+                    className={`w-12 h-12 rounded-xl ${exp.bgColor} border ${exp.borderColor} flex items-center justify-center transition-transform group-hover:scale-110`}
                   >
-                    <Briefcase className="text-white" size={24} />
+                    <span className={`text-sm font-bold ${exp.textColor}`}>
+                      {exp.logo}
+                    </span>
                   </div>
                   <div className={index % 2 === 0 ? "md:text-right" : ""}>
                     <h3 className="text-xl font-bold text-white">

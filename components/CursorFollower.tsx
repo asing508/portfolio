@@ -1,124 +1,90 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-
-interface OrbitDot {
-    id: number;
-    angle: number;
-    distance: number;
-    size: number;
-    speed: number;
-    opacity: number;
-    color: string;
-}
-
-const COLORS = [
-    "rgba(0, 212, 255, 0.6)",   // cyan
-    "rgba(139, 92, 246, 0.6)",  // purple
-    "rgba(255, 0, 170, 0.5)",   // magenta
-    "rgba(59, 130, 246, 0.6)",  // blue
-];
+import { useEffect, useRef } from "react";
 
 export default function CursorFollower() {
-    const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
-    const [targetPosition, setTargetPosition] = useState({ x: -100, y: -100 });
-    const [isVisible, setIsVisible] = useState(false);
-    const [orbitDots] = useState<OrbitDot[]>(() =>
-        Array.from({ length: 8 }, (_, i) => ({
-            id: i,
-            angle: (i * 360) / 8,
-            distance: 35 + Math.random() * 20,
-            size: 3 + Math.random() * 3,
-            speed: 0.3 + Math.random() * 0.4,
-            opacity: 0.4 + Math.random() * 0.4,
-            color: COLORS[i % COLORS.length],
-        }))
-    );
-
-    const animationRef = useRef<number>();
-    const currentPos = useRef({ x: -100, y: -100 });
+    const glowRef = useRef<HTMLDivElement>(null);
+    const ringRef = useRef<HTMLDivElement>(null);
+    const pos = useRef({ x: -100, y: -100 });
+    const target = useRef({ x: -100, y: -100 });
+    const visible = useRef(false);
 
     useEffect(() => {
+        // Hide on touch devices
+        if (window.matchMedia("(pointer: coarse)").matches) return;
+
         const handleMouseMove = (e: MouseEvent) => {
-            setTargetPosition({ x: e.clientX, y: e.clientY });
-            setIsVisible(true);
+            target.current = { x: e.clientX, y: e.clientY };
+            if (!visible.current) {
+                visible.current = true;
+                if (glowRef.current) glowRef.current.style.opacity = "1";
+                if (ringRef.current) ringRef.current.style.opacity = "1";
+            }
         };
 
         const handleMouseLeave = () => {
-            setIsVisible(false);
+            visible.current = false;
+            if (glowRef.current) glowRef.current.style.opacity = "0";
+            if (ringRef.current) ringRef.current.style.opacity = "0";
+        };
+
+        let raf: number;
+        const animate = () => {
+            // Smooth follow with easing
+            pos.current.x += (target.current.x - pos.current.x) * 0.12;
+            pos.current.y += (target.current.y - pos.current.y) * 0.12;
+
+            if (glowRef.current) {
+                glowRef.current.style.transform = `translate(${pos.current.x - 200}px, ${pos.current.y - 200}px)`;
+            }
+            if (ringRef.current) {
+                ringRef.current.style.transform = `translate(${pos.current.x - 20}px, ${pos.current.y - 20}px)`;
+            }
+
+            raf = requestAnimationFrame(animate);
         };
 
         window.addEventListener("mousemove", handleMouseMove);
         document.addEventListener("mouseleave", handleMouseLeave);
+        raf = requestAnimationFrame(animate);
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
             document.removeEventListener("mouseleave", handleMouseLeave);
+            cancelAnimationFrame(raf);
         };
     }, []);
-
-    // Smooth follow animation
-    useEffect(() => {
-        const animate = () => {
-            // Smooth interpolation for cursor following
-            const ease = 0.15;
-            currentPos.current.x += (targetPosition.x - currentPos.current.x) * ease;
-            currentPos.current.y += (targetPosition.y - currentPos.current.y) * ease;
-
-            setMousePosition({
-                x: currentPos.current.x,
-                y: currentPos.current.y
-            });
-
-            animationRef.current = requestAnimationFrame(animate);
-        };
-
-        animationRef.current = requestAnimationFrame(animate);
-
-        return () => {
-            if (animationRef.current) {
-                cancelAnimationFrame(animationRef.current);
-            }
-        };
-    }, [targetPosition]);
-
-    const [rotation, setRotation] = useState(0);
-
-    useEffect(() => {
-        const rotateInterval = setInterval(() => {
-            setRotation(prev => (prev + 1) % 360);
-        }, 30);
-
-        return () => clearInterval(rotateInterval);
-    }, []);
-
-    if (!isVisible) return null;
 
     return (
-        <div className="fixed inset-0 z-50 pointer-events-none overflow-hidden">
-            {/* Orbiting dots around cursor */}
-            {orbitDots.map((dot) => {
-                const currentAngle = (dot.angle + rotation * dot.speed) * (Math.PI / 180);
-                const x = mousePosition.x + Math.cos(currentAngle) * dot.distance;
-                const y = mousePosition.y + Math.sin(currentAngle) * dot.distance;
-
-                return (
-                    <div
-                        key={dot.id}
-                        className="absolute rounded-full transition-opacity duration-300"
-                        style={{
-                            left: x,
-                            top: y,
-                            width: dot.size,
-                            height: dot.size,
-                            backgroundColor: dot.color,
-                            transform: "translate(-50%, -50%)",
-                            opacity: dot.opacity,
-                            boxShadow: `0 0 ${dot.size * 2}px ${dot.color}`,
-                        }}
-                    />
-                );
-            })}
+        <div className="fixed inset-0 z-30 pointer-events-none overflow-hidden">
+            {/* Soft glow that follows cursor */}
+            <div
+                ref={glowRef}
+                className="absolute will-change-transform"
+                style={{
+                    width: 400,
+                    height: 400,
+                    opacity: 0,
+                    transition: "opacity 0.4s ease",
+                    background:
+                        "radial-gradient(circle, rgba(0,212,255,0.06) 0%, rgba(139,92,246,0.03) 40%, transparent 70%)",
+                    borderRadius: "50%",
+                }}
+            />
+            {/* Small ring cursor */}
+            <div
+                ref={ringRef}
+                className="absolute will-change-transform"
+                style={{
+                    width: 40,
+                    height: 40,
+                    opacity: 0,
+                    transition: "opacity 0.3s ease",
+                    border: "1.5px solid rgba(0, 212, 255, 0.3)",
+                    borderRadius: "50%",
+                    mixBlendMode: "screen",
+                }}
+            />
         </div>
     );
 }

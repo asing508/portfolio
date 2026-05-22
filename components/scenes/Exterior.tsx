@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { profile } from "@/data/portfolio";
 
-const STARS = Array.from({ length: 36 }, (_, i) => ({
-  x: (i * 137.5) % 1000,
-  y: ((i * 53) % 320) + 10,
+const STARS = Array.from({ length: 54 }, (_, i) => ({
+  x: ((i * 197.3) % 1600) - 300,
+  y: ((i * 71) % 540) - 150,
   r: (i % 3) * 0.5 + 0.8,
   d: (i % 7) * 0.3,
 }));
@@ -43,7 +43,7 @@ export default function Exterior({ onEnter }: { onEnter: () => void }) {
         style={{ transformOrigin: "50% 64%" }}
       >
         <svg
-          viewBox="0 0 1000 720"
+          viewBox="-300 -160 1600 1040"
           preserveAspectRatio="xMidYMid slice"
           className="h-full w-full"
         >
@@ -86,11 +86,11 @@ export default function Exterior({ onEnter }: { onEnter: () => void }) {
           ))}
 
           {/* distant hills */}
-          <path d="M0 560 Q250 500 500 545 T1000 530 V720 H0 Z" fill="#121212" />
-          <path d="M0 600 Q300 560 600 595 T1000 580 V720 H0 Z" fill="#161616" />
+          <path d="M-300 560 Q200 505 500 540 Q800 575 1300 535 V880 H-300 Z" fill="#121212" />
+          <path d="M-300 600 Q150 560 500 590 Q850 620 1300 585 V880 H-300 Z" fill="#161616" />
 
           {/* ground */}
-          <path d="M0 612 Q500 580 1000 612 V720 H0 Z" fill="#0a0a0a" stroke="#f4f1e8" strokeOpacity="0.25" strokeWidth="2" />
+          <path d="M-300 612 Q500 585 1300 612 V880 H-300 Z" fill="#0a0a0a" stroke="#f4f1e8" strokeOpacity="0.25" strokeWidth="2" />
 
           {/* stone path to door */}
           <g stroke="#f4f1e8" strokeOpacity="0.35" strokeWidth="2" fill="none">

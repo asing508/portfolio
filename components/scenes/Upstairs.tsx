@@ -53,7 +53,6 @@ export default function Upstairs({ onTerrace, onTV, onDownstairs }: Props) {
             <line x1="185" y1="394" x2="175" y2="410" /><line x1="205" y1="394" x2="215" y2="410" />
             <line x1="248" y1="345" x2="262" y2="335" /><line x1="248" y1="360" x2="264" y2="356" />
           </g>
-          <text x="195" y="195" textAnchor="middle" className="dossier-font" fill="#f4f1e8" fontSize="15" letterSpacing="3">TV ROOM</text>
         </g>
 
         {/* ===== RIGHT — open terrace doors to the night sky ===== */}
@@ -81,7 +80,6 @@ export default function Upstairs({ onTerrace, onTV, onDownstairs }: Props) {
             <line x1="700" y1="500" x2="940" y2="500" />
             {[730, 770, 810, 850, 890].map((x) => <line key={x} x1={x} y1="500" x2={x} y2="520" />)}
           </g>
-          <text x="820" y="190" textAnchor="middle" className="dossier-font" fill="#f4f1e8" fontSize="15" letterSpacing="3">TERRACE</text>
         </g>
 
         {/* ===== CENTER stair opening (down) ===== */}
@@ -90,11 +88,11 @@ export default function Upstairs({ onTerrace, onTV, onDownstairs }: Props) {
       </svg>
 
       <HoverButton label="TV Room" sublabel="Skills & Contact" onClick={onTV} delay={0.3}
-        className="left-[19%] top-[14%] -translate-x-1/2" />
+        className="left-3 top-[8%] sm:left-[6%] lg:left-[14%]" />
       <HoverButton label="The Terrace" sublabel="Projects" onClick={onTerrace} delay={0.45}
-        className="left-[82%] top-[14%] -translate-x-1/2" />
+        className="right-3 top-[8%] sm:right-[6%] lg:right-[14%]" />
       <HoverButton label="Go Downstairs" sublabel="Back to ground floor" onClick={onDownstairs} delay={0.6}
-        className="left-1/2 top-[64%] -translate-x-1/2" />
+        className="left-1/2 top-[62%] -translate-x-1/2" />
 
       <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}
         className="dossier-font absolute bottom-5 left-1/2 -translate-x-1/2 text-center text-[11px] uppercase tracking-[0.35em] text-ash">

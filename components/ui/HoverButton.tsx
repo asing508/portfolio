@@ -41,14 +41,14 @@ export default function HoverButton({
           animate={{ rotate: [-3, 3, -3] }}
           transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <div className="paper-card relative rotate-[-1.5deg] px-5 py-2 transition-transform group-hover:rotate-[1.5deg]">
+          <div className="paper-card relative flex flex-col items-center gap-1.5 rotate-[-1.5deg] px-8 py-4 transition-transform group-hover:rotate-[1.5deg]">
             {/* pin */}
-            <span className="absolute -top-2 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-ink bg-paper" />
-            <div className="sign-font text-center text-base leading-none tracking-wide sm:text-lg">
+            <span className="absolute -top-2.5 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rounded-full border-2 border-ink bg-paper" />
+            <div className="sign-font whitespace-nowrap text-center text-2xl leading-none tracking-wide sm:text-3xl">
               {label}
             </div>
             {sublabel && (
-              <div className="dossier-font mt-1 text-center text-[10px] uppercase text-ink/70">
+              <div className="dossier-font whitespace-nowrap text-center text-xs uppercase tracking-wider text-ink/70 sm:text-sm">
                 {sublabel}
               </div>
             )}

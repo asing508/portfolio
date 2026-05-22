@@ -81,7 +81,6 @@ export default function GroundFloor({ onLobby, onDrawing, onUpstairs, onExit }: 
             animate={{ opacity: [0.6, 0.85, 0.6] }}
             transition={{ duration: 4, repeat: Infinity }} />
           <rect x="150" y="470" width="60" height="6" fill="#f4f1e8" opacity="0.5" />
-          <text x="180" y="180" textAnchor="middle" className="dossier-font" fill="#f4f1e8" fontSize="16" letterSpacing="4">LOBBY</text>
         </g>
 
         {/* ===== RIGHT doorway — Drawing Room ===== */}
@@ -94,7 +93,6 @@ export default function GroundFloor({ onLobby, onDrawing, onUpstairs, onExit }: 
             animate={{ opacity: [0.6, 0.85, 0.6] }}
             transition={{ duration: 4, repeat: Infinity, delay: 1 }} />
           <rect x="790" y="470" width="60" height="6" fill="#f4f1e8" opacity="0.5" />
-          <text x="820" y="180" textAnchor="middle" className="dossier-font" fill="#f4f1e8" fontSize="15" letterSpacing="3">DRAWING ROOM</text>
         </g>
 
         {/* ===== CENTER spiral staircase ===== */}
@@ -109,21 +107,21 @@ export default function GroundFloor({ onLobby, onDrawing, onUpstairs, onExit }: 
         sublabel="About & Education"
         onClick={onLobby}
         delay={0.3}
-        className="left-[18%] top-[12%] -translate-x-1/2"
+        className="left-3 top-[8%] sm:left-[6%] lg:left-[14%]"
       />
       <HoverButton
         label="Drawing Room"
         sublabel="Experience"
         onClick={onDrawing}
         delay={0.45}
-        className="left-[82%] top-[12%] -translate-x-1/2"
+        className="right-3 top-[8%] sm:right-[6%] lg:right-[14%]"
       />
       <HoverButton
         label="Go Upstairs"
         sublabel="Projects · Skills · Contact"
         onClick={onUpstairs}
         delay={0.6}
-        className="left-1/2 top-[62%] -translate-x-1/2"
+        className="left-1/2 top-[60%] -translate-x-1/2"
       />
 
       {/* floor caption */}

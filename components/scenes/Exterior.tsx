@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { profile } from "@/data/portfolio";
 
@@ -14,11 +14,15 @@ const STARS = Array.from({ length: 54 }, (_, i) => ({
 export default function Exterior({ onEnter }: { onEnter: () => void }) {
   const [opening, setOpening] = useState(false);
 
+  // keep the latest callback without re-arming the timer on every re-render
+  const onEnterRef = useRef(onEnter);
+  onEnterRef.current = onEnter;
+
   useEffect(() => {
     if (!opening) return;
-    const t = window.setTimeout(onEnter, 1750);
+    const t = window.setTimeout(() => onEnterRef.current(), 1750);
     return () => window.clearTimeout(t);
-  }, [opening, onEnter]);
+  }, [opening]);
 
   const enter = () => !opening && setOpening(true);
 

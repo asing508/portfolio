@@ -89,13 +89,13 @@ export default function TVRoom({ onBack }: { onBack: () => void }) {
                 {profile.title}
               </p>
               <p className="hand-font mt-4 text-sm text-paper/80 sm:text-base">
-                ▸ Tune to a channel on the right to reach me ◂
+                ▸ Tune in below to reach me ◂
               </p>
             </div>
           </div>
 
-          {/* control panel */}
-          <div className="flex w-14 flex-col items-center justify-between py-1 sm:w-16">
+          {/* control panel (hidden on phones so the screen goes full-width) */}
+          <div className="hidden w-14 flex-col items-center justify-between py-1 sm:flex sm:w-16">
             <div className="dossier-font mb-1 text-[9px] uppercase tracking-widest text-ink/60">VOL</div>
             {[0, 1].map((k) => (
               <div key={k} className="relative mb-3 h-9 w-9 rounded-full border-[3px] border-ink sm:h-10 sm:w-10">

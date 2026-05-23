@@ -43,10 +43,10 @@ export default function RoomShell({
             initial={{ y: -24, opacity: 0, rotate: -2 }}
             animate={{ y: 0, opacity: 1, rotate: -1 }}
             transition={{ delay: 0.15, type: "spring", stiffness: 120, damping: 12 }}
-            className="paper-card mx-auto mb-10 inline-block px-8 py-4"
+            className="paper-card mx-auto mb-8 inline-block max-w-full px-5 py-4 sm:mb-10 sm:px-8"
           >
             {kicker && (
-              <div className="dossier-font text-center text-[11px] uppercase tracking-[0.3em] text-ink/60">
+              <div className="dossier-font text-balance text-center text-[10px] uppercase leading-snug tracking-[0.25em] text-ink/60 sm:text-[11px] sm:tracking-[0.3em]">
                 {kicker}
               </div>
             )}

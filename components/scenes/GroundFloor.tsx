@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import HoverButton from "@/components/ui/HoverButton";
 import BackButton from "@/components/ui/BackButton";
 import SpiralStaircase from "@/components/ui/SpiralStaircase";
+import MobileFloorMenu from "@/components/scenes/MobileFloorMenu";
 
 type Props = {
   onLobby: () => void;
@@ -24,6 +25,20 @@ export default function GroundFloor({ onLobby, onDrawing, onUpstairs, onExit }: 
     >
       <BackButton onClick={onExit} label="Outside" />
 
+      {/* ===== Mobile: stacked door menu ===== */}
+      <MobileFloorMenu
+        className="md:hidden"
+        heading="Ground Floor"
+        caption="Pick a room"
+        items={[
+          { key: "lobby", label: "The Lobby", sublabel: "About & Education", onClick: onLobby, kind: "door" },
+          { key: "drawing", label: "Drawing Room", sublabel: "Experience", onClick: onDrawing, kind: "door" },
+          { key: "up", label: "Go Upstairs", sublabel: "Projects · Skills · Contact", onClick: onUpstairs, kind: "up" },
+        ]}
+      />
+
+      {/* ===== Tablet / Desktop: spatial room ===== */}
+      <div className="absolute inset-0 hidden md:block">
       <svg
         viewBox="0 0 1000 700"
         preserveAspectRatio="xMidYMid slice"
@@ -133,6 +148,7 @@ export default function GroundFloor({ onLobby, onDrawing, onUpstairs, onExit }: 
       >
         Ground Floor — pick a room
       </motion.p>
+      </div>
     </motion.div>
   );
 }

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import HoverButton from "@/components/ui/HoverButton";
 import BackButton from "@/components/ui/BackButton";
 import SpiralStaircase from "@/components/ui/SpiralStaircase";
+import MobileFloorMenu from "@/components/scenes/MobileFloorMenu";
 
 type Props = {
   onTerrace: () => void;
@@ -23,6 +24,20 @@ export default function Upstairs({ onTerrace, onTV, onDownstairs }: Props) {
     >
       <BackButton onClick={onDownstairs} label="Downstairs" />
 
+      {/* ===== Mobile: stacked door menu ===== */}
+      <MobileFloorMenu
+        className="md:hidden"
+        heading="Upstairs"
+        caption="Two more rooms"
+        items={[
+          { key: "tv", label: "TV Room", sublabel: "Skills & Contact", onClick: onTV, kind: "door" },
+          { key: "terrace", label: "The Terrace", sublabel: "Projects", onClick: onTerrace, kind: "door" },
+          { key: "down", label: "Go Downstairs", sublabel: "Back to ground floor", onClick: onDownstairs, kind: "down" },
+        ]}
+      />
+
+      {/* ===== Tablet / Desktop: spatial room ===== */}
+      <div className="absolute inset-0 hidden md:block">
       <svg viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">
         <rect x="0" y="0" width="1000" height="520" fill="#161616" />
         <line x1="0" y1="60" x2="1000" y2="60" stroke="#f4f1e8" strokeOpacity="0.12" strokeWidth="3" />
@@ -98,6 +113,7 @@ export default function Upstairs({ onTerrace, onTV, onDownstairs }: Props) {
         className="dossier-font absolute bottom-5 left-1/2 -translate-x-1/2 text-center text-[11px] uppercase tracking-[0.35em] text-ash">
         Upstairs — two more rooms
       </motion.p>
+      </div>
     </motion.div>
   );
 }
